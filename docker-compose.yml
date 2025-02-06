@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./backend:/backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"  # React app served via Nginx
+    depends_on:
+      - backend  # ✅ Wait for backend before starting frontend
