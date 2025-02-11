@@ -1,13 +1,13 @@
-FROM node:20
+# Build Stage
+FROM node:20-bullseye-slim AS build
 WORKDIR /frontend
 COPY package.json yarn.lock ./
-RUN yarn install --production
+RUN yarn install --frozen-lockfile
 COPY . .
-RUN yarn run build
+RUN yarn build
 
-# Use Nginx Image to server the frontend
+# Serve with Nginx
 FROM nginx:latest
-COPY --from=build /app/build /usr/share/nginx/html
+COPY  --from=build /frontend/build /usr/share/nginx/html
 EXPOSE 80
-CMD ["nginx","-g","daemon off;"]
-
+CMD ["nginx", "-g", "daemon off;"]

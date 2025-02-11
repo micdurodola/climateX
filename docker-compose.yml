@@ -2,17 +2,28 @@ version: '3.8'
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "4000:4000"
     environment:
       - NODE_ENV=production
-    volumes:
-      - ./backend:/backend
+
+    networks:
+      - app_network
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "3000:80"  # React app served via Nginx
+      - "80:80"
     depends_on:
-      - backend  # ✅ Wait for backend before starting frontend
+      - backend
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
