@@ -3,7 +3,6 @@ pipeline{
     environment {
         DOCKER_USERNAME= "${env.DOCKER_USERNAME}"
         DOCKER_PASSWORD= "${env.DOCKER_PASSWORD}"
-        DOCKER_PASSWORD= credentials('docker-password')
         FRONTEND_IMAGE = "${DOCKER_USERNAME}/climate-frontend:latest"
         BACKEND_IMAGE = "${DOCKER_USERNAME}/climate-backend:latest"
     }
