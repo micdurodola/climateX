@@ -11,7 +11,7 @@ pipeline{
             steps{
                 script{
                     // Docker login
-                    sh 'echo $DOCKER_PASSWORD | docker login -u DOCKER_USERNAME --password-stdin'
+                    sh 'echo $DOCKER_PASSWORD | docker login -u "DOCKER_USERNAME" --password-stdin'
                     sh 'docker build -t $FRONTEND_IMAGE -f Dockerfile.frontend'
                     sh 'docker push $FRONTEND_IMAGE'
                 }
@@ -22,7 +22,7 @@ pipeline{
             steps{
                 script{
                     // Docker login
-                    sh 'echo $DOCKER_PASSWORD | docker login -u DOCKER_USERNAME --password-stdin'
+                    sh 'echo $DOCKER_PASSWORD | docker login -u "DOCKER_USERNAME" --password-stdin'
                     sh 'docker build -t $BACKEND_IMAGE -f Dockerfile.backend'
                     sh 'docker push $BACKEND_IMAGE'
                 }
